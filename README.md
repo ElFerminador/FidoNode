@@ -9,7 +9,7 @@ The configuration needs to change; the following is a list of the placeholder an
 Unicorn BBS       = The name of your system<br>
 Bern, Switzerland = Your location<br>
 
-# Insructions
+# Instructions
 
 1. Paths
 All files in this repository are supposed to be in a folder "C:\fido", accordingly in there you should see the following folders:<br>
