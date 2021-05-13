@@ -1,0 +1,7 @@
+AREADEF NETMAIL              "Netmail area"          0 Net FIDO c:\fido\netmail\ .    (Loc)
+AREADEF PERSONAL_MAIL        "Personal mail"         0 Local FIDO c:\fido\persmail\ . (R/O Loc)
+AREADEF DUP_MSGS             "Duplicate messages"    0 Local Hudson 2 . (R/O Loc)
+AREADEF BAD_MSGS             "Bad messages"          0 Local Hudson 1 . (R/O Loc)
+AREADEF RECOVERY_BOARD       "Recovery board"        0 Local Hudson 3 . (R/O Loc)
+AREADEF FMAIL_HELP           ""                                           A Echo JAM c:\fido\msgbase\fmail_help 2:999/456.0 (Loc)
+AREADEF GOLDED               ""                                           A Echo JAM C:\fido\msgbase\golded 2:999/456.0 (Loc)

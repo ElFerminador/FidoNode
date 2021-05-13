@@ -1,0 +1,75 @@
+
+Address your request to 'FMail', 'AreaMgr', 'AreaFix', 'AreaLink' or 'EchoMgr'
+(without quotes). Enter your password for AreaMgr on the subject line.
+
+In the body of the message to AreaMgr (with area FMAIL_HELP as an example) :
+
+  FMAIL_HELP         Connect area FMAIL_HELP
+  FMAIL_HELP /R      Connect area FMAIL_HELP and rescan all messages
+                     in the message base
+  FMAIL_HELP /R=50   Connect area FMAIL_HELP and rescan at most 50 messages
+  =FMAIL_HELP        Rescan the connected area FMAIL_HELP without having
+                     to disconnect it first
+
+  -FMAIL_HELP        Disconnect area FMAIL_HELP
+
+  %+ALL              Connect all available areas
+  %-ALL              Disconnect all areas
+
+  %FROM Z:N/N.P      Perform remote maintenance for another system with given
+                     nodenumber. The node or point doing remote maintenance
+                     should use his/her own password. The replies generated
+                     by FMail will be sent to both the system doing remote
+                     maintenance and the system for which the maintenance is
+                     being done.
+
+  %COMPRES ZIP       or
+  %COMPRESSION ZIP   Change the compression method used for your mail to ZIP
+                     (or NON[E]/ARC/ZIP/LZH/PAK/ZOO/ARJ/SQZ/CUS/UC2/RAR/JAR)
+  %PWD ABCDEF        or
+  %PASSWORD ABCDEF   Change your AreaMgr password to ABCDEF (password should
+                     be at least 5 characters and at most 16 characters long)
+  %PKTPWD QRSTUV     Change your packet password to QRSTUV (password may be
+                     at most 8 characters long)
+  %NOTIFY ON         Turn NOTIFY messages on
+  %NOTIFY OFF        Turn NOTIFY messages off
+
+  %HELP              Request this message
+  %LIST              Request a list of areas available to you
+  %BLIST             Request a list of areas available to you in
+                     binary format (*.BCL file)
+  %QUERY             Request a list of areas for which you are active
+  %UNLINKED          Request a list of areas to which you are not connected
+
+  %RESCAN            Request a rescan of all new areas
+  %RESCAN=50         Request a rescan of at most 50 messages per area for
+                     all new areas
+  %PASSIVE           Temporarily disable all areas. This means that you won't
+                     receive any echo mail anymore unless it is addressed to
+                     you personally (only if the sysop on this node has
+                     entered your name correctly in the Node Manager). You
+                     will still be allowed to send echo mail to this system
+                     in areas to which you are connected.
+  %PAUSE             Same as %PASSIVE, but without the exception for mail
+                     addressed to the name of the sysop. You will receive
+                     no mail at all. You can still send mail.
+  %RESUME            or
+  %ACTIVE            Make your node active again.
+
+  %AUTOBCL 7         Request to receive a BCL file from FMail every 7 days.
+                     Use 0 if you don't want to receive BCL files anymore.
+                     See FMAIL.DOC for more information about this feature
+
+  %NOTE              or
+  ...                or
+  ---                Everything after and below these lines is ignored
+
+You can also use the -H, -L, -Q and -U switches in the subject line, as
+alternatives to the commands: %HELP, %LIST, %QUERY and %UNLINKED.
+
+And you can specify the compression method in the subject line with -ARC. Where
+'ARC' is one of the supported compression modes listed above with the
+%COMPRESSION command.
+
+
+# areamgr.hlp version: 2017-01-06 #
