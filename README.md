@@ -4,9 +4,13 @@ Complete Fidonet Node system, minimal changes needed to get up&amp;running again
 # Identities, placeholders
 The configuration needs to change; the following is a list of the placeholder and what you should substitute it with:
 "John Doe"        = Your Name
+
 2:999/456         = Your fidonet node number
+
 2:999/1           = Your fidonet *uplink's* node number
+
 Unicorn BBS       = The name of your system
+
 Bern, Switzerland = Your location
 
 # Insructions
