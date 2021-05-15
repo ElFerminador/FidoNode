@@ -69,7 +69,7 @@ Start c:\fido\_batch\PowerFido.ps1. It will wrap around various Fido programs an
  9 - Send outbound echo and netmail<br>
 10 - Manually process inbound echo an netmail<br>
 <br>
- X - Exit<br><br>
+ X - Exit<br>
 
 Which will it be?:
 
