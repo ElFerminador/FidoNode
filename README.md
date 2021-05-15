@@ -61,6 +61,7 @@ Start c:\fido\_batch\PowerFido.ps1. It will wrap around various Fido programs an
 
  1 - Start GoldEd<br>
  2 - Start GoldNode (compile Nodelist)<br>
+ 3 - Perform FMail maintenance<br>
 <br>
  5 - Tail BinkD log (separate window)<br>
  6 - Tail FMail log (separate window)<br>
