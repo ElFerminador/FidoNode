@@ -14,8 +14,9 @@
    V    Date        Author                 Notes
    ------------------------------------------------------------------------
    1.0  15.05.2021  Fermin Sanchez         First release
+   1.1  16.05.2021  Fermin Sanchez         Added maintenance option, fixed typos
 #>
-$Version = '1.0'
+$Version = '1.1'
 
 #Path definitions
 $Me = $MyInvocation.MyCommand.Path
@@ -57,6 +58,7 @@ do
     Write-Host ' '
     Write-Host ' 1 - Start GoldEd'
     Write-Host ' 2 - Start GoldNode (compile Nodelist)'
+    Write-Host ' 3 - Perform FMail maintenance'
     Write-Host ' '
     Write-Host ' 5 - Tail BinkD log (separate window)'
     Write-Host ' 6 - Tail FMail log (separate window)'
@@ -84,6 +86,15 @@ do
             $GoldNodeLog = Join-Path -Path $LogRoot -ChildPath "goldnode_$now.log"
             Start-Process -FilePath $GoldNode -WorkingDirectory $GoldRoot -ArgumentList '-CD' -RedirectStandardOutput $GoldNodeLog
             ReviewLog -LogFile $GoldNodeLog
+        }
+        
+        3
+        {
+            $FToolsW32 = Join-Path -Path $FMailRoot -ChildPath 'ftoolsw32.exe'
+            $FToolsLog = Join-Path -Path $LogRoot -ChildPath "maint_$now.log"
+            $FtoolsParam = 'maint'
+            Start-Process -FilePath $FToolsW32 -WorkingDirectory $FMailRoot -ArgumentList $FtoolsParam -RedirectStandardOutput $FToolsLog
+            ReviewLog -LogFile $FToolsLog
         }
         
         5
