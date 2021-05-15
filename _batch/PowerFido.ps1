@@ -18,7 +18,8 @@
 $Version = '1.0'
 
 #Path definitions
-$NodeRoot  = 'c:\fido'
+$Me = $MyInvocation.MyCommand.Path
+$NodeRoot = (Get-Item -Path $Me).Directory.Parent.FullName
 $GoldRoot  = Join-Path -Path $NodeRoot -ChildPath 'golded'
 $FMailRoot = Join-Path -Path $NodeRoot -ChildPath 'fmail'
 $LogRoot   = Join-Path -Path $NodeRoot -ChildPath 'log'
