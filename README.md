@@ -50,10 +50,29 @@ About area manager: New areas are automatically created once new mail in them ha
 BinkD uses the default BinkP internet port tcp/24554. Make sure that outbound traffic to that port is allowed and that inbound traffic to that port is routed to your Fidonet node system. Don't forget to open the port in the local firewall, as well.
 
 
-# Daily operation
+# Daily operation, old school
 Just start c:\fido\_batch\binkd.cmd. This should launch BinkD in a window and that's it. You're up&running. Inbound mails are automatically processed; BinkD will launch c:\fido\_batch\FMail_In.cmd when it receives a .pkt file. Outbound mail is not automatically sent, you have to launch c:\fido\_batch\FMail_Out.cmd. This will send normal netmail, routed netmail, direct/crash netmail and echomail.
 
 Finally, just launch c:\fido\golded\golded.exe to start reading your mail.<br>
+
+
+# Daily operation, the PoSH way
+Start c:\fido\_batch\PowerFido.ps1. It will wrap around various Fido programs and let you launch processes, guided through a text style GUI:
+
+ 1 - Start GoldEd
+ 2 - Start GoldNode (compile Nodelist)
+
+ 5 - Tail BinkD log (separate window)
+ 6 - Tail FMail log (separate window)
+ 7 - Tail Tosser log (separate window)
+
+ 9 - Send outbound echo and netmail
+10 - Manually process inbound echo an netmail
+
+ X - Exit
+
+Which will it be?:
+
 
 
 # Licenses
