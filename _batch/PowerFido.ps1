@@ -18,7 +18,7 @@
 $Version = '1.0'
 
 #Path definitions
-$NodeRoot  = 'f:\fido'
+$NodeRoot  = 'c:\fido'
 $GoldRoot  = Join-Path -Path $NodeRoot -ChildPath 'golded'
 $FMailRoot = Join-Path -Path $NodeRoot -ChildPath 'fmail'
 $LogRoot   = Join-Path -Path $NodeRoot -ChildPath 'log'
