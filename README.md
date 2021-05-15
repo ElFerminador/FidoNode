@@ -59,17 +59,17 @@ Finally, just launch c:\fido\golded\golded.exe to start reading your mail.<br>
 # Daily operation, the PoSH way
 Start c:\fido\_batch\PowerFido.ps1. It will wrap around various Fido programs and let you launch processes, guided through a text style GUI:
 
- 1 - Start GoldEd
- 2 - Start GoldNode (compile Nodelist)
-
- 5 - Tail BinkD log (separate window)
- 6 - Tail FMail log (separate window)
- 7 - Tail Tosser log (separate window)
-
- 9 - Send outbound echo and netmail
-10 - Manually process inbound echo an netmail
-
- X - Exit
+ 1 - Start GoldEd<br>
+ 2 - Start GoldNode (compile Nodelist)<br>
+<br>
+ 5 - Tail BinkD log (separate window)<br>
+ 6 - Tail FMail log (separate window)<br>
+ 7 - Tail Tosser log (separate window)<br>
+<br>
+ 9 - Send outbound echo and netmail<br>
+10 - Manually process inbound echo an netmail<br>
+<br>
+ X - Exit<br><br>
 
 Which will it be?:
 
