@@ -11,14 +11,15 @@
 .OUTPUTS
    n/a
 .NOTES
-   V    Date        Author                 Notes
+   V     Date        Author                 Notes
    ------------------------------------------------------------------------------------
-   1.0  15.05.2021  Fermin Sanchez         First release
-   1.1  16.05.2021  Fermin Sanchez         Added maintenance option, fixed typos
-   1.2  17.05.2021  Fermin Sanchez         Close previously opened programs upon eXit
-   1.3  17.05.2021  Rolf Wilhelm           Poll uplink
+   1.0   15.05.2021  Fermin Sanchez         First release
+   1.1   16.05.2021  Fermin Sanchez         Added maintenance option, fixed typos
+   1.2   17.05.2021  Fermin Sanchez         Close previously opened programs upon eXit
+   1.3   17.05.2021  Rolf Wilhelm           Poll uplink 
+   1.3a  17.05.2021  Fermin Sanchez         
 #>
-$Version = '1.3'
+$Version = '1.3a'
 
 #Path definitions
 $Me = $MyInvocation.MyCommand.Path
@@ -28,12 +29,13 @@ $FMailRoot = Join-Path -Path $NodeRoot -ChildPath 'fmail'
 $LogRoot   = Join-Path -Path $NodeRoot -ChildPath 'log'
 $SecureIn  = Join-Path -Path $NodeRoot -ChildPath 'transfer\in'
 $UnknownIn = Join-Path -Path $NodeRoot -ChildPath 'transfer\in.unknown'
+$Outbound  = Join-Path -path $NodeRoot -ChildPath 'transfer\out'
 
 #get some definitions from config files (node and uplink)
 $GoldCfg   = Get-Content -LiteralPath "$GoldRoot\golded.cfg"
 $Node = ($GoldCfg | ? { $_.Replace("`t"," ").Replace("  "," ").Split(" ")[0] -eq "ADDRESS"}).Split(" ")[1]
 $NodeUplink = ($GoldCfg | ? { $_.Replace("`t"," ").Replace("  "," ").Split(" ")[0] -eq "ADDRESSMACRO"}).Split(",")[2]
-$host.ui.RawUI.WindowTitle = “Control Center for Node $Node”
+$host.ui.RawUI.WindowTitle = "Control Center for Node $Node  - v $Version"
 
 #Functions
 function ReviewLog
@@ -175,7 +177,6 @@ do
 
         X
         {
-            Write-Host 'blah'
             foreach ($p in $OpenedProcesses)
             {
                 Stop-Process -Id $($p.id)
