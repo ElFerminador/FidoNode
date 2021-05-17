@@ -12,11 +12,12 @@
    n/a
 .NOTES
    V    Date        Author                 Notes
-   ------------------------------------------------------------------------
+   ------------------------------------------------------------------------------------
    1.0  15.05.2021  Fermin Sanchez         First release
    1.1  16.05.2021  Fermin Sanchez         Added maintenance option, fixed typos
+   1.2  17.05.2021  Fermin Sanchez         Close previously opened programs upon eXit
 #>
-$Version = '1.1'
+$Version = '1.2'
 
 #Path definitions
 $Me = $MyInvocation.MyCommand.Path
@@ -50,7 +51,7 @@ function ReviewLog
 
 
 #The script
-
+$OpenedProcesses = @()  #housekeeping
 $loop = $true
 do
 {
@@ -67,24 +68,26 @@ do
     Write-Host ' 9 - Send outbound echo and netmail'
     Write-Host '10 - Manually process inbound echo an netmail'
     Write-Host ' '
-    Write-Host ' X - Exit'
+    Write-Host ' X - Exit (and close all windows)'
     Write-Host ' '
     $Sel = Read-Host 'Which will it be?'
 
-    $now = Get-Date -Format "yyyy_MM_dd_HH_mm_ss"  #for temp logfiles
+    $now = Get-Date -Format "yyyy_MM_dd_HH_mm_ss"   #for temp logfiles
     switch ($Sel)
     {
         1 
         { 
             $GoldEd = Join-Path -Path $GoldRoot -ChildPath 'golded.exe'
-            Start-Process -FilePath $GoldEd -WorkingDirectory $GoldRoot
+            $proc = Start-Process -FilePath $GoldEd -WorkingDirectory $GoldRoot -PassThru
+            $OpenedProcesses += $proc
         }
         
         2
         {
             $GoldNode = Join-Path -Path $GoldRoot -ChildPath 'goldnode.exe'
             $GoldNodeLog = Join-Path -Path $LogRoot -ChildPath "goldnode_$now.log"
-            Start-Process -FilePath $GoldNode -WorkingDirectory $GoldRoot -ArgumentList '-CD' -RedirectStandardOutput $GoldNodeLog
+            $proc = Start-Process -FilePath $GoldNode -WorkingDirectory $GoldRoot -ArgumentList '-CD' -RedirectStandardOutput $GoldNodeLog -PassThru
+            $OpenedProcesses += $proc
             ReviewLog -LogFile $GoldNodeLog
         }
         
@@ -93,7 +96,8 @@ do
             $FToolsW32 = Join-Path -Path $FMailRoot -ChildPath 'ftoolsw32.exe'
             $FToolsLog = Join-Path -Path $LogRoot -ChildPath "maint_$now.log"
             $FtoolsParam = 'maint'
-            Start-Process -FilePath $FToolsW32 -WorkingDirectory $FMailRoot -ArgumentList $FtoolsParam -RedirectStandardOutput $FToolsLog
+            $proc = Start-Process -FilePath $FToolsW32 -WorkingDirectory $FMailRoot -ArgumentList $FtoolsParam -RedirectStandardOutput $FToolsLog -PassThru
+            $OpenedProcesses += $proc 
             ReviewLog -LogFile $FToolsLog
         }
         
@@ -101,21 +105,24 @@ do
         {
             $BinkDlog = Join-Path $LogRoot -ChildPath 'binkd.log'
             $cmd = "Get-Content -Path $BinkDlog -tail 50 -Wait"
-            Start-Process PowerShell.exe -ArgumentList "-command $cmd"
+            $proc = Start-Process PowerShell.exe -ArgumentList "-command $cmd" -PassThru
+            $OpenedProcesses += $proc
         }
         
         6
         {
             $FMaillog = Join-Path $LogRoot -ChildPath 'fmail.log'
             $cmd = "Get-Content -Path $FMaillog -tail 50 -Wait"
-            Start-Process PowerShell.exe -ArgumentList "-command $cmd"
+            $proc = Start-Process PowerShell.exe -ArgumentList "-command $cmd" -PassThru
+            $OpenedProcesses += $proc 
         }
         
         7
         {
             $Tosslog = Join-Path $LogRoot -ChildPath 'toss.log'
             $cmd = "Get-Content -Path $Tosslog -tail 50 -Wait"
-            Start-Process PowerShell.exe -ArgumentList "-command $cmd"
+            $proc = Start-Process PowerShell.exe -ArgumentList "-command $cmd" -PassThru
+            $OpenedProcesses += $proc
         }
         
         9
@@ -125,8 +132,10 @@ do
             $FMailW32 = Join-Path -Path $FMailRoot -ChildPath 'fmailw32.exe'
             $PackParam = 'pack * /C'
             $ScanParam = 'scan'
-            Start-Process -FilePath $FMailW32 -WorkingDirectory $FMailRoot -ArgumentList $PackParam -RedirectStandardOutput $PackLog
-            Start-Process -FilePath $FMailW32 -WorkingDirectory $FMailRoot -ArgumentList $ScanParam -RedirectStandardOutput $ScanLog
+            $proc1 = Start-Process -FilePath $FMailW32 -WorkingDirectory $FMailRoot -ArgumentList $PackParam -RedirectStandardOutput $PackLog -PassThru
+            $proc2 = Start-Process -FilePath $FMailW32 -WorkingDirectory $FMailRoot -ArgumentList $ScanParam -RedirectStandardOutput $ScanLog -PassThru
+            $OpenedProcesses += $proc1
+            $OpenedProcesses += $proc2 
             ReviewLog -LogFile $PackLog
             ReviewLog -LogFile $ScanLog
         }
@@ -144,14 +153,21 @@ do
             $ImportLog = Join-Path -Path $LogRoot -ChildPath "import_$now"
             $TossParam   = 'toss /B'
             $ImportParam = 'import'
-            Start-Process -FilePath $FMailW32 -WorkingDirectory $FMailRoot -ArgumentList $TossParam -RedirectStandardOutput $Tosslog -Wait
-            Start-Process -FilePath $FMailW32 -WorkingDirectory $FMailRoot -ArgumentList $ImportParam -RedirectStandardOutput $ImportLog -Wait
+            $proc1 = Start-Process -FilePath $FMailW32 -WorkingDirectory $FMailRoot -ArgumentList $TossParam -RedirectStandardOutput $Tosslog -Wait -PassThru 
+            $proc2 = Start-Process -FilePath $FMailW32 -WorkingDirectory $FMailRoot -ArgumentList $ImportParam -RedirectStandardOutput $ImportLog -Wait -PassThru 
+            $OpenedProcesses += $proc1 
+            $OpenedProcesses += $proc2 
             ReviewLog -LogFile $Tosslog
             ReviewLog -LogFile $ImportLog
         }
 
         X
         {
+            Write-Host 'blah'
+            foreach ($p in $OpenedProcesses)
+            {
+                Stop-Process -Id $($p.id)
+            }
             $loop = $false
         }
 
