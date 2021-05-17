@@ -16,8 +16,9 @@
    1.0  15.05.2021  Fermin Sanchez         First release
    1.1  16.05.2021  Fermin Sanchez         Added maintenance option, fixed typos
    1.2  17.05.2021  Fermin Sanchez         Close previously opened programs upon eXit
+   1.3  17.05.2021  Rolf Wilhelm           Poll uplink
 #>
-$Version = '1.2'
+$Version = '1.3'
 
 #Path definitions
 $Me = $MyInvocation.MyCommand.Path
@@ -28,6 +29,11 @@ $LogRoot   = Join-Path -Path $NodeRoot -ChildPath 'log'
 $SecureIn  = Join-Path -Path $NodeRoot -ChildPath 'transfer\in'
 $UnknownIn = Join-Path -Path $NodeRoot -ChildPath 'transfer\in.unknown'
 
+#get some definitions from config files (node and uplink)
+$GoldCfg   = Get-Content -LiteralPath "$GoldRoot\golded.cfg"
+$Node = ($GoldCfg | ? { $_.Replace("`t"," ").Replace("  "," ").Split(" ")[0] -eq "ADDRESS"}).Split(" ")[1]
+$NodeUplink = ($GoldCfg | ? { $_.Replace("`t"," ").Replace("  "," ").Split(" ")[0] -eq "ADDRESSMACRO"}).Split(",")[2]
+$host.ui.RawUI.WindowTitle = “Control Center for Node $Node”
 
 #Functions
 function ReviewLog
@@ -64,7 +70,7 @@ do
     Write-Host ' 5 - Tail BinkD log (separate window)'
     Write-Host ' 6 - Tail FMail log (separate window)'
     Write-Host ' 7 - Tail Tosser log (separate window)'
-    Write-Host ' '
+    Write-Host " 8 - Poll Uplink at $NodeUplink"
     Write-Host ' 9 - Send outbound echo and netmail'
     Write-Host '10 - Manually process inbound echo an netmail'
     Write-Host ' '
@@ -123,6 +129,12 @@ do
             $cmd = "Get-Content -Path $Tosslog -tail 50 -Wait"
             $proc = Start-Process PowerShell.exe -ArgumentList "-command $cmd" -PassThru
             $OpenedProcesses += $proc
+        }
+
+        8
+        {
+            $a = ($NodeUplink.split(":").Split("/"));
+            " " | Out-File ("$Outbound\{0:X4}{1:X4}.CLO" -f [int]$a[1],[int]$a[2])
         }
         
         9
