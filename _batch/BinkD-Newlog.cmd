@@ -8,5 +8,3 @@ net stop binkd
 del binkd.old
 ren binkd.log binkd.old
 net start binkd
-
-pause
