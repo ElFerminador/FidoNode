@@ -17,7 +17,7 @@ $Version = '1.0'
 $root = $PSScriptRoot
 
 #Global Variables
-$FidoRoot    = 'f:\fido'
+$FidoRoot    = 'c:\fido'
 $InboxDir    = Join-Path -Path $FidoRoot -ChildPath 'transfer\in'
 $NodelistDir = Join-Path -Path $FidoRoot -ChildPath 'nodelist'
 $LogDir      = Join-Path -Path $FidoRoot -ChildPath 'log'

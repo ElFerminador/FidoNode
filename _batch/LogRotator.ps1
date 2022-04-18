@@ -17,7 +17,7 @@ $Version = '1.0'
 $root = $PSScriptRoot
 
 #Global Variables
-$FidoRoot = 'f:\fido'
+$FidoRoot = 'c:\fido'
 $LogDir   = Join-Path -Path $FidoRoot -ChildPath 'log'
 
 #Script...
