@@ -67,7 +67,7 @@ Finally, just launch **c:\fido\golded\golded.exe** to start reading your mail.<b
 # Daily operation, the PoSH way
 
 Start **c:\fido\_batch\PowerFido.ps1**. It will wrap around various Fido programs and let you launch processes, guided through a text style GUI:<br><br>
-<code>
+
 &emsp;1 - Start GoldEd<br>
 &emsp;2 - Start GoldNode (compile Nodelist)<br>
 &emsp;3 - Perform FMail maintenance<br>
@@ -83,7 +83,7 @@ Start **c:\fido\_batch\PowerFido.ps1**. It will wrap around various Fido program
 
 Which will it be?:
 <br><br>
-</code>
+
 
 # Licenses
 
