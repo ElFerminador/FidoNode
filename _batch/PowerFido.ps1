@@ -74,7 +74,7 @@ do
     Write-Host ' 7 - Tail Tosser log (separate window)'
     Write-Host " 8 - Poll Uplink at $NodeUplink"
     Write-Host ' 9 - Send outbound echo and netmail'
-    Write-Host '10 - Manually process inbound echo an netmail'
+    Write-Host '10 - Process inbound echo and netmail'
     Write-Host ' '
     Write-Host ' X - Exit (and close all windows)'
     Write-Host ' '
