@@ -17,8 +17,9 @@ $Version = '1.0'
 $root = $PSScriptRoot
 
 #Global Variables
-$FidoRoot = 'c:\fido'
-$LogDir   = Join-Path -Path $FidoRoot -ChildPath 'log'
+$Me = $MyInvocation.MyCommand.Path
+$NodeRoot = (Get-Item -Path $Me).Directory.Parent.FullName
+$LogDir   = Join-Path -Path $NodeRoot -ChildPath 'log'
 
 #Script...
 $Logfiles = Get-ChildItem -Path $LogDir -Filter '*.log'
@@ -30,3 +31,5 @@ foreach ($f in $Logfiles)
     ren $logFile $bakFile
 }
 
+#Restart BinkD to create a new logfile
+Restart-Service 'binkd'

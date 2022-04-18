@@ -17,10 +17,11 @@ $Version = '1.0'
 $root = $PSScriptRoot
 
 #Global Variables
-$FidoRoot    = 'c:\fido'
-$InboxDir    = Join-Path -Path $FidoRoot -ChildPath 'transfer\in'
-$NodelistDir = Join-Path -Path $FidoRoot -ChildPath 'nodelist'
-$LogDir      = Join-Path -Path $FidoRoot -ChildPath 'log'
+$Me = $MyInvocation.MyCommand.Path
+$NodeRoot = (Get-Item -Path $Me).Directory.Parent.FullName
+$InboxDir    = Join-Path -Path $NodeRoot -ChildPath 'transfer\in'
+$NodelistDir = Join-Path -Path $NodeRoot -ChildPath 'nodelist'
+$LogDir      = Join-Path -Path $NodeRoot -ChildPath 'log'
 $LogFile     = Join-Path -Path $LogDir -ChildPath 'NodelistHandler.log'
 $Nodelists   = 'nodelist','z2daily'
 
