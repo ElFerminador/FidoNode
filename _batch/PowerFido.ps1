@@ -85,14 +85,14 @@ do
     {
         1 
         { 
-            $GoldEd = Join-Path -Path $GoldRoot -ChildPath 'golded.exe'
+            $GoldEd = Join-Path -Path $GoldRoot -ChildPath 'gedwin64.exe'
             $proc = Start-Process -FilePath $GoldEd -WorkingDirectory $GoldRoot -PassThru
             $OpenedProcesses += $proc
         }
         
         2
         {
-            $GoldNode = Join-Path -Path $GoldRoot -ChildPath 'goldnode.exe'
+            $GoldNode = Join-Path -Path $GoldRoot -ChildPath 'gnwin64.exe'
             $GoldNodeLog = Join-Path -Path $LogRoot -ChildPath "goldnode_$now.log"
             $proc = Start-Process -FilePath $GoldNode -WorkingDirectory $GoldRoot -ArgumentList '-CD' -RedirectStandardOutput $GoldNodeLog -PassThru
             $OpenedProcesses += $proc
